@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 typedef char string[50];
-
+//fuck
 struct FullName {
     string firstName;
     char midIni;
