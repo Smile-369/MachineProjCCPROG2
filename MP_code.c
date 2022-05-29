@@ -78,24 +78,27 @@ void PrintTicketLog (struct CurrentDay a) //print to console for now, print to t
   }
     fclose(Ticket);
 }
-
+void
+ convertToString(struct CurrentDay a)
+{
+  string day,month,year;
+  sprintf(day,"%d",a.Date.day);
+  sprintf(month,"%d",a.Date.month);
+  sprintf(year,"%d",a.Date.year);
+  strcat(day,"-");
+  strcat(day,month);
+  strcat(day,"-");
+  strcat(day,year);
+  strcat(day,".txt");
+  strcpy(a.sDate,day);
+}
 int main (int argc, char const *argv[])
 {
     struct CurrentDay today;
     struct PassInfo info;
-    string day,month,year;
     today.Date.day=10;
-    today.Date.month=02;
-    today.Date.year=2041;
-    sprintf(day,"%d",today.Date.day);
-    sprintf(month,"%d",today.Date.month);
-    sprintf(year,"%d",today.Date.year);
-    strcat(day,"-");
-    strcat(day,month);
-    strcat(day,"-");
-    strcat(day,year);
-    strcat(day,".txt");
-    strcpy(today.sDate,day);
+    today.Date.month=11;
+    today.Date.year=2022;
     PrintTicketLog(today);
     int i, j; //will be used as counter variables
 
