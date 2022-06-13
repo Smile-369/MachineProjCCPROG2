@@ -1,0 +1,601 @@
+1 22 2023
+Marta Castillo
+AE157
+4
+Laguna
+1
+1187891
+Lucy Poole
+AE101
+5
+Manila
+3
+1198271
+Claire Parks
+AE103
+5
+Manila
+3
+1197935
+Andre Walsh
+AE153
+2
+Laguna
+3
+1176600
+Tonya Alvarado
+AE105
+2
+Manila
+3
+1214195
+Nancy Schwartz
+AE101
+3
+Manila
+3
+1218973
+Tommy Holt
+AE156
+6
+Laguna
+1
+1200012
+Fernando Barker
+AE108
+5
+Manila
+1
+1215714
+Carol Powers
+AE109
+3
+Manila
+3
+121964
+Ella Yates
+AE107
+2
+Manila
+1
+1168598
+Cheryl Franklin
+AE156
+3
+Laguna
+3
+1211960
+Viola Beck
+AE103
+3
+Manila
+1
+1182842
+Corey Copeland
+AE151
+6
+Laguna
+2
+1161036
+Gerard Hall
+AE109
+1
+Manila
+1
+1165323
+Austin Lopez
+AE156
+2
+Laguna
+4
+1203126
+Ignacio Sutton
+AE109
+1
+Manila
+3
+1174718
+Felicia Martinez
+AE155
+5
+Laguna
+1
+1190679
+Sean Collier
+AE152
+4
+Laguna
+4
+1215664
+Jeremy Parsons
+AE150
+5
+Laguna
+2
+1211891
+Don Bell
+AE109
+4
+Manila
+1
+1211802
+Darnell Griffin
+AE160
+4
+Laguna
+3
+1192198
+Ernesto Miles
+AE151
+6
+Laguna
+4
+1193132
+Jill Sandoval
+AE160
+6
+Laguna
+4
+1177192
+Courtney Marsh
+AE157
+5
+Laguna
+1
+1167468
+Gary Byrd
+AE105
+3
+Manila
+2
+1195104
+Bessie Bates
+AE155
+5
+Laguna
+4
+1165013
+Nichole Horton
+AE104
+4
+Manila
+3
+1197663
+Candace Blair
+AE103
+4
+Manila
+3
+1202569
+Brad Shelton
+AE151
+1
+Laguna
+2
+1178903
+Susan Carpenter
+AE157
+1
+Laguna
+1
+1182148
+Andy Walker
+AE101
+6
+Manila
+3
+1182195
+Bradford Wilkerson
+AE160
+6
+Laguna
+3
+1186648
+Elmer Parker
+AE105
+5
+Manila
+1
+1195421
+Devin Hansen
+AE107
+1
+Manila
+2
+1204057
+Clay Farmer
+AE150
+1
+Laguna
+2
+1192216
+Lela Barrett
+AE159
+5
+Laguna
+3
+1178629
+Elisa Beck
+AE153
+2
+Laguna
+4
+1164795
+Ebony Bishop
+AE160
+1
+Laguna
+4
+1206958
+Israel Baldwin
+AE108
+1
+Manila
+2
+1219855
+Georgia Tran
+AE107
+6
+Manila
+2
+1206077
+Harry Jacobs
+AE158
+6
+Laguna
+1
+1173042
+Lindsey Wilson
+AE158
+4
+Laguna
+2
+1197717
+Fannie Bass
+AE101
+3
+Manila
+3
+1205171
+Constance Vega
+AE155
+4
+Laguna
+1
+1197547
+Vicky Dean
+AE105
+5
+Manila
+3
+1177036
+Rufus Parsons
+AE157
+2
+Laguna
+4
+1218411
+Jeremiah Taylor
+AE151
+6
+Laguna
+3
+1196601
+Leah Harper
+AE105
+1
+Manila
+2
+1181467
+Lee Brooks
+AE108
+4
+Manila
+1
+1206964
+Sam Marsh
+AE153
+4
+Laguna
+2
+1204539
+Lauren Barnes
+AE154
+1
+Laguna
+2
+1187243
+Maggie Powell
+AE154
+2
+Laguna
+2
+1168947
+Ellen Keller
+AE152
+1
+Laguna
+1
+1168238
+Melba Diaz
+AE155
+1
+Laguna
+4
+1182749
+Reginald Mason
+AE150
+2
+Laguna
+1
+1182782
+Sammy Holmes
+AE153
+3
+Laguna
+4
+1170586
+Jenny Snyder
+AE103
+1
+Manila
+1
+1213539
+Sandra Henderson
+AE157
+5
+Laguna
+1
+1212703
+Paulette Hernandez
+AE156
+3
+Laguna
+3
+1194279
+Vivian Wolfe
+AE156
+4
+Laguna
+1
+1191306
+Della Hanson
+AE107
+6
+Manila
+3
+1172984
+Henrietta Mathis
+AE103
+1
+Manila
+1
+1166767
+Russell Jennings
+AE107
+4
+Manila
+1
+1200450
+Monique Robbins
+AE106
+6
+Manila
+3
+1218348
+Yvette Soto
+AE153
+2
+Laguna
+1
+1186479
+Chester Montgomery
+AE157
+3
+Laguna
+2
+1186016
+Harriet Marshall
+AE105
+6
+Manila
+1
+1184917
+Darrell Mann
+AE108
+2
+Manila
+1
+1204756
+Derek Boone
+AE152
+2
+Laguna
+2
+1197942
+Lillie Page
+AE107
+5
+Manila
+1
+1196826
+Adam Cox
+AE107
+6
+Manila
+1
+1211385
+Angelo Reed
+AE158
+3
+Laguna
+2
+1176260
+Ella Porter
+AE155
+6
+Laguna
+2
+1189276
+Agnes Obrien
+AE102
+6
+Manila
+1
+1161491
+Pam Nash
+AE106
+1
+Manila
+1
+1181140
+Sherry Cortez
+AE157
+6
+Laguna
+3
+1167931
+Duane Mcbride
+AE108
+5
+Manila
+1
+1212896
+Clayton Hanson
+AE154
+4
+Laguna
+1
+1189454
+Willis Harvey
+AE155
+6
+Laguna
+3
+1169918
+Terrell Gonzalez
+AE160
+6
+Laguna
+1
+1185562
+Theodore Huff
+AE154
+3
+Laguna
+3
+1206750
+Lydia Mcdaniel
+AE158
+4
+Laguna
+3
+1201699
+Lindsey Ramos
+AE108
+1
+Manila
+1
+1205540
+Krystal Clayton
+AE160
+1
+Laguna
+3
+1181674
+Wendell Barber
+AE101
+6
+Manila
+1
+1218647
+Ginger Reyes
+AE158
+5
+Laguna
+3
+1191135
+Joel Maxwell
+AE153
+6
+Laguna
+2
+1196766
+Barbara Curtis
+AE106
+3
+Manila
+3
+1208006
+Melba James
+AE151
+3
+Laguna
+3
+1164992
+Dustin Sherman
+AE107
+2
+Manila
+1
+1169368
+Olivia Long
+AE155
+4
+Laguna
+3
+1179403
+Roman Wright
+AE101
+4
+Manila
+3
+1215406
+Jody Wilson
+AE105
+3
+Manila
+2
+1180604
+Dianne Hines
+AE154
+1
+Laguna
+3
+1182209
+Bobby Barrett
+AE158
+2
+Laguna
+2
+1208240
+Billie Murphy
+AE154
+2
+Laguna
+2
+1214521
+Shirley Poole
+AE152
+5
+Laguna
+1
+1212560
+Joy Mckenzie
+AE109
+4
+Manila
+2
+1190386
+Deanna Lynch
+AE151
+4
+Laguna
+3
+1199637
+Patti Gibson
+AE154
+3
+Laguna
+1
+1162830
