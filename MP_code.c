@@ -4,103 +4,158 @@
 */
 
 #include <stdio.h>
-#include <stdbool.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 
 typedef char string[50];
-//fuck
-struct FullName {
-    string firstName;
-    char midIni;
-    string lastName;
-};
 
-struct Date {
-    int year;
+// Structure for storing the date
+struct date {
     int month;
-    int day;
+    int date;
+    int year;
 };
 
-struct PassInfo {
-    int tripNumber;
-    string embarkPoint;
-    string passName;
-    int idNum;
+// Structure for all the info of the passengers
+struct ECard {
+    int tripNum;
+    int ePoint;
+    string LastName;
+    string FirstName;
+    int id;
     int prioNum;
-    string dropPoint;
+    int dPoint;
+    int busNum;
+    int seatNum;
 };
 
+//the structure for all the bussys
 struct Bus {
-    int seats[5][6];
-    int row;
-    int column;
-    struct PassInfo PassengerInfo[20];
-
+    int passCount;
+    struct ECard info[20];
+    struct date date;
+    string dateString;
+    int busName;
 };
 
-struct CurrentDay {
-    struct Date Date;
-    struct Bus Buses[20];
-    int maxBus;
-    int maxPass;
-    string sDate;
-};
-
-
-void getInput(struct CurrentDay *a)
+// Initialize both busName and passCount
+void initBus(struct Bus bus[])
 {
-    FILE* Ticket;
-    Ticket=fopen("input","r");
-    //counter
-    int i, j;
-
-
+    int i, tempBusname=101;
+    for (i = 0; i < 20; i++)
+    {
+        bus[i].passCount = 0;
+        bus[i].info[bus->passCount].seatNum = bus[i].passCount + 1;
+        bus[i].busName = tempBusname;
+        tempBusname++;
+        if(tempBusname == 110)
+            tempBusname = 150;
+    }
 }
 
-void PrintTicketLog (struct CurrentDay a) //print to console for now, print to txt file later
+// returns the bus index+1 based on the trip number : IE: 101 returns 1
+int getBusName (struct Bus bus[], int tripNum)
 {
-    FILE* Ticket;
-    int i=0,j=0;
+    int i;
 
-
-    Ticket = fopen(a.sDate, "w");
-    for(i=0;i<a.maxBus;i++){
-      for(j=0;i<a.maxPass;j++){
-        fprintf (Ticket, "%d\n" , a.Buses[i].PassengerInfo[j].tripNumber);
-        fprintf (Ticket, "%s\n" , a.Buses[i].PassengerInfo[j].embarkPoint);
-        fprintf (Ticket, "%s\n" , a.Buses[i].PassengerInfo[j].passName);
-        fprintf (Ticket, "%d\n" , a.Buses[i].PassengerInfo[j].idNum);
-        fprintf (Ticket, "%d\n" , a.Buses[i].PassengerInfo[j].prioNum);
-        fprintf (Ticket, "%s\n" , a.Buses[i].PassengerInfo[j].dropPoint);
-        fprintf (Ticket, "\n");
-      }
-  }
-    fclose(Ticket);
+    for (i = 0; i < 20; i++)
+    {
+        if (bus[i].busName == tripNum)
+            return i + 1;
+    }
+    return 0;
 }
-void
- convertToString(struct CurrentDay a)
+
+// Manual passenger input
+void passInput (struct Bus *bus)
 {
-  string day,month,year;
-  sprintf(day,"%d",a.Date.day);
-  sprintf(month,"%d",a.Date.month);
-  sprintf(year,"%d",a.Date.year);
-  strcat(day,"-");
-  strcat(day,month);
-  strcat(day,"-");
-  strcat(day,year);
-  strcat(day,".txt");
-  strcpy(a.sDate,day);
+    if (bus->busName >= 101 && bus->busName <= 109)
+        bus->info[bus->passCount].ePoint = 0;
+    if (bus->busName >= 150 && bus->busName <= 160)
+        bus->info[bus->passCount].ePoint = 1;
+
+    printf("What is your Name?\n");
+    scanf("%s %s", bus->info[bus->passCount].FirstName, bus->info[bus->passCount].LastName);
+    printf("What is your ID number?\n");
+    scanf("%d", &bus->info[bus->passCount].id);
+    printf("What priority group are you in?\n");
+    printf("(1): Faculty and ASF with Inter-campus assignments\n");
+    printf("(2): Students with Inter-campus enrolled subjects or enrolled in thesis using Inter-campus facilities\n");
+    printf("(3): Researchers\n");
+    printf("(4): School Administrators\n");
+    printf("(5): University Fellows\n");
+    printf("(6): Employees and Students with official business\n");
+    scanf("%d", &bus->info[bus->passCount].prioNum);
+    printf("Which drop-off point are you going to?\n");
+
+    if (bus->busName >= 101 && bus->busName <= 109)
+    {
+        printf("(1): Mamplasan Toll Exit\n");
+        printf("(2): Phase 5, San Jose Village\n");
+        printf("(3): Milagros Del Rosario Building - East Canopy\n");
+        scanf("%d", &bus->info[bus->passCount].dPoint);
+    }
+
+    if (bus->busName >= 150 && bus->busName <= 160)
+    {
+        printf("(1): Petron Gasoline Station along Gil Puyat Avenue\n");
+        printf("(2): Gate 4: Gokongwei Gate\n");
+        printf("(3): Gate 2: North Gate (HSSH)\n");
+        printf("(4): Gate 1: South Gate (LS Building Entrance)\n");
+        scanf("%d", &bus->info[bus->passCount].dPoint);
+    }
+
+    printf("Your seat number is %d\n", bus->info[bus->passCount].seatNum);
+    bus->info[bus->passCount].seatNum++;
+    bus->passCount++;
+    bus->info[bus->passCount].seatNum = bus->passCount + 1;
+    printf("Thank you for using Arrow Express Line!\n");
 }
+
+void inputFromText (struct Bus bus[])
+{
+    FILE *fp;
+    int i = 0, totalPasscount;
+
+    fp = fopen("input.txt", "r");
+    struct ECard temp[150];
+    i = 0;
+    while (!feof(fp))
+    {
+        fscanf(fp,"%s %s",temp[i].FirstName, temp[i].LastName);
+        fscanf(fp,"%d", &temp[i].busNum);
+        if (temp[i].busNum >= 101 && temp[i].busNum <= 109)
+            temp[i].ePoint = 0;
+        if (temp[i].busNum >= 150 && temp[i].busNum <= 160)
+            temp[i].ePoint = 1;
+        fscanf(fp,"%d", &temp[i].dPoint);
+        fscanf(fp,"%d", &temp[i].id);
+        i++;
+
+    }
+    totalPasscount = i;
+
+    for (i = 0; i < totalPasscount; i++)
+    {
+        bus[getBusName(bus, temp[i].busNum)-1].info[bus[getBusName(bus, temp[i].busNum)-1].passCount] = temp[i];
+        bus[getBusName(bus, temp[i].busNum)-1].passCount++;
+        bus[i].info[bus->passCount].seatNum = bus[i].passCount + 1;
+    }
+}
+
 int main (int argc, char const *argv[])
 {
-    struct CurrentDay today;
-    struct PassInfo info;
-    today.Date.day=10;
-    today.Date.month=11;
-    today.Date.year=2022;
-    PrintTicketLog(today);
-    int i, j; //will be used as counter variables
+    struct Bus bus[20];
+    int busNum, passBool;
+    initBus(bus);
 
-    return 0;
+    // printf("Enter (1) if you are a passenger or (0) if you are an AE personnel\n");
+    // scanf("%d", &passBool);
+
+    inputFromText(bus);
+
+    printf("Which bus would you ride on\nAE");
+    scanf("%d", &busNum);
+    passInput (&bus[getBusName(bus, busNum)-1]);
 }
