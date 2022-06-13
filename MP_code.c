@@ -46,7 +46,6 @@ void initBus(struct Bus bus[])
     for (i = 0; i < 20; i++)
     {
         bus[i].passCount = 0;
-        bus[i].info[bus->passCount].seatNum = bus[i].passCount + 1;
         bus[i].busName = tempBusname;
         tempBusname++;
         if(tempBusname == 110)
@@ -105,14 +104,14 @@ void passInput (struct Bus *bus)
         printf("(4): Gate 1: South Gate (LS Building Entrance)\n");
         scanf("%d", &bus->info[bus->passCount].dPoint);
     }
-
+    bus->info[bus->passCount].seatNum = bus->passCount + 1;
     printf("Your seat number is %d\n", bus->info[bus->passCount].seatNum);
     bus->info[bus->passCount].seatNum++;
     bus->passCount++;
-    bus->info[bus->passCount].seatNum = bus->passCount + 1;
     printf("Thank you for using Arrow Express Line!\n");
 }
 
+// Load passenger input feature
 void inputFromText (struct Bus bus[])
 {
     FILE *fp;
@@ -138,24 +137,206 @@ void inputFromText (struct Bus bus[])
 
     for (i = 0; i < totalPasscount; i++)
     {
+
         bus[getBusName(bus, temp[i].busNum)-1].info[bus[getBusName(bus, temp[i].busNum)-1].passCount] = temp[i];
         bus[getBusName(bus, temp[i].busNum)-1].passCount++;
-        bus[i].info[bus->passCount].seatNum = bus[i].passCount + 1;
+        bus[i].info[bus->passCount].seatNum = bus[i].passCount;
     }
+
+    fclose(fp);
+}
+
+// View no. of passengers dropping off at certain points
+void printDPointCount (struct Bus bus)
+{
+    int i, mTollCount = 0, p5Count = 0, mDRBCount = 0, pGSCount = 0, g4Count = 0, g2Count = 0, g1Count = 0;
+
+    for (i = 0; i < 20; i++)
+    {
+        if (bus.info[i].ePoint == 0)
+        {
+            switch (bus.info[i].dPoint)
+            {
+            case 1:
+                mTollCount++;
+                break;
+            case 2:
+                p5Count++;
+                break;
+            case 3:
+                mDRBCount++;
+                break;
+            }
+        }
+
+        if (bus.info[i].ePoint == 1)
+        {
+            switch (bus.info[i].dPoint)
+            {
+            case 1:
+                pGSCount++;
+                break;
+            case 2:
+                g4Count++;
+                break;
+            case 3:
+                g2Count++;
+                break;
+            case 4:
+                g1Count++;
+                break;
+            }
+        }
+    }
+    printf("Passengers going down at:\n");
+    if (mTollCount)
+        printf("Mamplasan Toll Exit: %d Passenger(s)\n", mTollCount);
+    if (p5Count)
+        printf("Mamplasan Toll Exit: %d Passenger(s)\n", mTollCount);
+    if (mDRBCount)
+        printf("Milagros Del Rosario Building - East Canopy: %d Passenger(s)\n", mDRBCount);
+    if (pGSCount)
+        printf("Petron Gasoline Station along Gil Puyat Avenue: %d Passenger(s)\n", pGSCount);
+    if (g4Count)
+        printf("Gate 4: Gokongwei Gate: %d Passenger(s)\n", g4Count);
+    if (g2Count)
+        printf("Gate 2: North Gate (HSSH): %d Passenger(s)\n", g2Count);
+    if (g1Count)
+        printf("Gate 1: South Gate (LS Building Entrance): %d Passenger(s)\n", g1Count);
+    printf("\n\n");
+}
+
+int checkSeatCount(struct Bus Bus,int seatCount)
+{
+    int i=0,j=0;
+    for(i=0;i<20;i++){
+        if(Bus.info[i].seatNum==seatCount)
+            return 1;
+      }
+}
+
+void printBus(struct Bus bus)
+{
+    int i,j,seatCount=1;
+    if(bus.passCount<=13)
+    {
+        printf("AMOUNT OF SEATS AVAILABLE %d\n",13 - bus.passCount );
+        for(i = 0; i < 5; i++)
+        {
+            for(j = 0; j < 3; j++)
+            {
+                if(j > 0 && i == 4)
+                {
+                    if(j == 2)
+                        printf("| DRIVER|");
+                }
+                else
+                {
+                    if(checkSeatCount(bus, seatCount))
+                    {
+                        printf("| X " );
+                        if(j == 2)
+                            printf("|");
+                    }
+                    else
+                    {
+                        printf("| O " );
+                        if(j == 2)
+                            printf("|");
+                    }
+                }
+                seatCount++;
+            }
+            printf("\n\n");
+        }
+    }
+
+else if(bus.passCount>13)
+{
+    printf("AMOUNT OF SEATS AVAILABLE %d\n",16-bus.passCount );
+    for(i = 0; i < 5; i++)
+    {
+        for (j = 0; j < 4; j++)
+        {
+            if (j >= 0 && i == 4)
+            {
+                if (j == 0)
+                    printf("|    DRIVER     |");
+            }
+            else
+            {
+                if(checkSeatCount(bus, seatCount))
+                {
+                    printf("| X " );
+                    if(j == 3)
+                        printf("|");
+                }
+                else
+                {
+                    printf("| O " );
+                    if(j == 3)
+                        printf("|");
+                }
+        }
+        seatCount++;
+      }
+      printf("\n\n");
+    }
+  }
+
 }
 
 int main (int argc, char const *argv[])
 {
     struct Bus bus[20];
-    int busNum, passBool;
+    int busNum, option, passBool;
     initBus(bus);
 
-    // printf("Enter (1) if you are a passenger or (0) if you are an AE personnel\n");
-    // scanf("%d", &passBool);
+        printf("Enter (1) if you are a passenger or (0) if you are an AE personnel\n");
+        scanf("%d", &passBool);
 
-    inputFromText(bus);
+        if (passBool == 1)
+        {
+            printf("Which bus would you ride on\nAE");
+            scanf("%d", &busNum);
+            passInput (&bus[getBusName(bus, busNum)-1]);
+        }
 
-    printf("Which bus would you ride on\nAE");
-    scanf("%d", &busNum);
-    passInput (&bus[getBusName(bus, busNum)-1]);
+    while (option != 7)
+    {
+        if (passBool == 0)
+        {
+            printf("Welcome Arrow Express Personnel!\n");
+            printf("What would you like to do?\n");
+            printf("(1): View number of passengers\n");
+            printf("(2): View count of passengers at drop-off points\n");
+            printf("(3): View passenger information\n");
+            printf("(4): Load passenger information\n");
+            printf("(5): Search passenger information\n");
+            printf("(6): Load trip file\n");
+            printf("(7): Exit\n");
+            scanf("%d", &option);
+
+            switch (option)
+            {
+            case 1:
+                printf("Enter trip number\nAE");
+                scanf("%d", &busNum);
+                printBus(bus[getBusName(bus, busNum)-1]);
+                break;
+            case 2:
+                printf("Enter trip number\nAE");
+                scanf("%d", &busNum);
+                printDPointCount(bus[getBusName(bus, busNum)-1]);
+                break;
+            case 4:
+                inputFromText(bus);
+                break;
+            case 7:
+                return 0;
+                break;
+            }
+        }
+    }
+    return 0;
 }
