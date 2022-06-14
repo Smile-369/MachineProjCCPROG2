@@ -15,6 +15,7 @@ struct date {
     int month;
     int date;
     int year;
+    string dateString;
 };
 
 // Structure for all the info of the passengers
@@ -35,7 +36,6 @@ struct Bus {
     int passCount;
     struct ECard info[20];
     struct date date;
-    string dateString;
     int busName;
 };
 
@@ -126,7 +126,6 @@ void inputFromText (struct Bus bus[])
     while (!feof(fp))
     {
         fscanf(fp,"%s %s",temp[i].FirstName, temp[i].LastName);
-        fprintf(stdout,"%s %s\n",temp[i].FirstName, temp[i].LastName);
         fscanf(fp,"%d", &temp[i].busNum);
         if (temp[i].busNum >= 101 && temp[i].busNum <= 109)
             temp[i].ePoint = 0;
@@ -331,9 +330,10 @@ void printDPointCount (struct Bus bus)
 
 int checkSeatCount(struct Bus Bus,int seatCount)
 {
-    int i=0,j=0;
-    for(i=0;i<20;i++){
-        if(Bus.info[i].seatNum==seatCount)
+    int i;
+    for(i = 0; i < 20; i++)
+    {
+        if (Bus.info[i].seatNum == seatCount)
             return 1;
       }
 }
@@ -407,9 +407,9 @@ else if(bus.passCount>13)
       printf("\n\n");
     }
   }
-
 }
 
+// Display the info of the passenger searched using last name
 void SearchPass (struct Bus bus[])
 {
     int i, j;
@@ -437,13 +437,13 @@ void SearchPass (struct Bus bus[])
                         switch (bus[i].info[j].dPoint)
                         {
                         case 1:
-                            printf("Drop-off point: Mamplasan Toll Exit");
+                            printf("Drop-off point: Mamplasan Toll Exit\n");
                         break;
                         case 2:
-                            printf("Drop-off point: Phase 5, San Jose Village");
+                            printf("Drop-off point: Phase 5, San Jose Village\n");
                         break;
                         case 3:
-                            printf("Drop-off point: Milagros Del Rosario Building - East Canopy");
+                            printf("Drop-off point: Milagros Del Rosario Building - East Canopy\n");
                         break;
                         }
                 if (bus[i].busName >= 150 && bus[i].busName <= 160)
@@ -451,16 +451,16 @@ void SearchPass (struct Bus bus[])
                     switch(bus[i].info[j].dPoint)
                     {
                     case 1:
-                        printf("Drop-off point: Petron Gasoline Station along Gil Puyat Avenue");
+                        printf("Drop-off point: Petron Gasoline Station along Gil Puyat Avenue\n");
                         break;
                     case 2:
-                        printf("Drop-off point: Gate 4: Gokongwei Gate");
+                        printf("Drop-off point: Gate 4: Gokongwei Gate\n");
                         break;
                     case 3:
-                        printf("Drop-off point: Gate 2: North Gate (HSSH)");
+                        printf("Drop-off point: Gate 2: North Gate (HSSH)\n");
                         break;
                     case 4:
-                        printf("Drop-off point: Gate 1: South Gate (LS Building Entrance)");
+                        printf("Drop-off point: Gate 1: South Gate (LS Building Entrance)\n");
                         break;
                     }
 
@@ -471,12 +471,163 @@ void SearchPass (struct Bus bus[])
     printf("\n\n");
 }
 
+// Print all receipts to a single file
+void printReceipt(struct Bus bus[], struct date date)
+{
+    int i, j;
+    FILE* fp;
+    string trip = "trip-";
+    strcat(trip,date.dateString);
+    strcat(trip,".txt");
+    fp = fopen(trip,"w");
+
+    for (i = 0; i < 20; i++)
+    {
+        for (j = 0; j < bus[i].passCount; j++)
+        {
+            fprintf(fp, "AE%d\n", bus[i].busName);
+            if (bus[i].info[j].ePoint == 0)
+                fprintf(fp, "Manila\n");
+            else if (bus[i].info[j].ePoint == 1)
+                fprintf(fp, "Laguna\n");
+            fprintf(fp, "%s %s\n", bus[i].info[j].FirstName, bus[i].info[j].LastName);
+            fprintf(fp, "%d\n", bus[i].info[j].id);
+            fprintf(fp, "%d\n", bus[i].info[j].prioNum);
+            switch (bus[i].info[j].dPoint)
+            {
+            case 1:
+                if (bus[i].info[j].ePoint == 0)
+                    fprintf(fp, "Mamplasan Toll Exit\n");
+                else if(bus[i].info[j].ePoint == 1)
+                    fprintf(fp, "Petron Gasoline Station along Gil Puyat Avenue\n");
+                break;
+            case 2:
+                if (bus[i].info[j].ePoint == 0)
+                    fprintf(fp, "Phase 5, San Jose Village\n");
+                else if(bus[i].info[j].ePoint == 1)
+                    fprintf(fp, "Gate 4: Gokongwei Gate\n");
+                break;
+           case 3:
+                if (bus[i].info[j].ePoint == 0)
+                    fprintf(fp, "Milagros Del Rosario (MRR) Building - East Canopy\n");
+                else if(bus[i].info[j].ePoint == 1)
+                    fprintf(fp, "Gate 2: North Gate (HSSH)\n");
+                break;
+            case 4:
+                    fprintf(fp, "Gate 1: South Gate (LS Building Entrance)\n");
+                break;
+
+            }
+            fprintf(fp, "--------------\n");
+            fprintf(fp, "--------------\n");
+        }
+        if (i == 19)
+            fprintf(fp, "--------------\n");
+    }
+}
+
+//Prints the info of all passengers in the bus
+void printAllPassInfo(struct Bus bus[])
+{
+    int i, j;
+    for (i = 0; i < 20; i++)
+    {
+        for (j = 0; j < bus[i].passCount; j++)
+        {
+            printf("AE%d\n", bus[i].busName);
+            if (bus[i].info[j].ePoint == 0)
+                printf( "Manila\n");
+            else if (bus[i].info[j].ePoint == 1)
+                printf("Laguna\n");
+
+            printf( "%s %s\n", bus[i].info[j].FirstName, bus[i].info[j].LastName);
+            printf( "%d\n", bus[i].info[j].id);
+            printf( "%d\n", bus[i].info[j].prioNum);
+            switch (bus[i].info[j].dPoint)
+            {
+            case 1:
+                if (bus[i].info[j].ePoint == 0)
+                    printf( "Mamplasan Toll Exit\n");
+                else if(bus[i].info[j].ePoint == 1)
+                    printf( "Petron Gasoline Station along Gil Puyat Avenue\n");
+                break;
+            case 2:
+                if (bus[i].info[j].ePoint == 0)
+                    printf( "Phase 5, San Jose Village\n");
+                else if(bus[i].info[j].ePoint == 1)
+                    printf( "Gate 4: Gokongwei Gate\n");
+                break;
+           case 3:
+                if (bus[i].info[j].ePoint == 0)
+                    printf( "Milagros Del Rosario (MRR) Building - East Canopy\n");
+                else if(bus[i].info[j].ePoint == 1)
+                    printf( "Gate 2: North Gate (HSSH)\n");
+                break;
+            case 4:
+                    printf( "Gate 1: South Gate (LS Building Entrance)\n");
+                break;
+
+            }
+            printf( "--------------\n");
+            printf( "--------------\n");
+        }
+        if (i == 19)
+            printf( "--------------\n");
+    }
+}
+
+void sortPriority(struct Bus *bus)
+{
+    int i, j, tempSeatCount = 1;
+    struct ECard temp;
+
+    // loop to access each array element
+    for (i = 0; i < bus->passCount - 1; i++)
+    {
+        // loop to compare array elements
+        for (j = 0; j < bus->passCount - i - 1; j++)
+        {
+            if (bus->info[j].prioNum > bus->info[j+1].prioNum)
+            {
+                temp = bus->info[j];
+                bus->info[j] = bus->info[j + 1];
+                bus->info[j + 1] = temp;
+            }
+        }
+    }
+}
+void assignSeats(struct Bus bus[])
+{
+    int i, j;
+    int seatcount[20];
+    for (i = 0; i < 20; i++)
+    {
+        for (j = 0; j < bus[i].passCount; j++)
+        {
+            bus[i].info[j].seatNum = 0;
+            seatcount[i] = 1;
+        }
+    }
+    for(i=0;i<20;i++)
+    {
+        for(j=0;j<bus[i].passCount;j++)
+        {
+            bus[i].info[j].seatNum = seatcount[i];
+            seatcount[i]++;
+        }
+    }
+}
+
 int main (int argc, char const *argv[])
 {
     struct Bus bus[20];
+    struct date date;
     string input;
     int busNum, option, passBool,i;
     initBus(bus);
+        printf("Enter date(DD MM YYYY): \n");
+        scanf("%d %d %d", &date.date, &date.month, &date.year);
+        sprintf(date.dateString,"%02d-%02d-%04d", date.date, date.month,date.year);
 
         printf("Enter (1) if you are a passenger or (0) if you are an AE personnel\n");
         scanf("%d", &passBool);
@@ -508,6 +659,7 @@ int main (int argc, char const *argv[])
             case 1:
                 printf("Enter trip number\nAE");
                 scanf("%d", &busNum);
+                assignSeats(bus);
                 printBus(bus[getBusName(bus, busNum)-1]);
                 break;
             case 2:
@@ -515,6 +667,12 @@ int main (int argc, char const *argv[])
                 scanf("%d", &busNum);
                 printDPointCount(bus[getBusName(bus, busNum)-1]);
                 break;
+            case 3:
+                for(i = 0;i < 20; i++)
+                {
+                    sortPriority(&bus[i]);
+                }
+                printAllPassInfo(bus);
             case 4:
                 inputFromText(bus);
                 break;
@@ -522,6 +680,7 @@ int main (int argc, char const *argv[])
                 SearchPass(bus);
                 break;
             case 7:
+                printReceipt(bus, date);
                 return 0;
                 break;
             }
