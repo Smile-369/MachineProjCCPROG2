@@ -115,20 +115,25 @@ void passInput (struct Bus *bus)
 void inputFromText (struct Bus bus[])
 {
     FILE *fp;
-    int i = 0, totalPasscount;
+    int i = 0, totalPasscount,count[20];
 
     fp = fopen("input.txt", "r");
     struct ECard temp[150];
+    for(i=0;i<20;i++){
+        count[i]=bus[i].passCount;
+    }
     i = 0;
     while (!feof(fp))
     {
         fscanf(fp,"%s %s",temp[i].FirstName, temp[i].LastName);
+        fprintf(stdout,"%s %s\n",temp[i].FirstName, temp[i].LastName);
         fscanf(fp,"%d", &temp[i].busNum);
         if (temp[i].busNum >= 101 && temp[i].busNum <= 109)
             temp[i].ePoint = 0;
         if (temp[i].busNum >= 150 && temp[i].busNum <= 160)
             temp[i].ePoint = 1;
         fscanf(fp,"%d", &temp[i].dPoint);
+        fscanf(fp,"%d", &temp[i].prioNum);
         fscanf(fp,"%d", &temp[i].id);
         i++;
 
@@ -137,10 +142,128 @@ void inputFromText (struct Bus bus[])
 
     for (i = 0; i < totalPasscount; i++)
     {
-
-        bus[getBusName(bus, temp[i].busNum)-1].info[bus[getBusName(bus, temp[i].busNum)-1].passCount] = temp[i];
-        bus[getBusName(bus, temp[i].busNum)-1].passCount++;
-        bus[i].info[bus->passCount].seatNum = bus[i].passCount;
+        switch (temp[i].busNum) {
+          case 101:
+            bus[0].info[count[0]]=temp[i];
+            bus[0].info[count[0]].seatNum=count[0]+1;
+            count[0]++;
+            bus[0].passCount=count[0];
+          break;
+          case 102:
+            bus[1].info[count[1]]=temp[i];
+            bus[1].info[count[1]].seatNum=count[1]+1;
+            count[1]++;;
+            bus[1].passCount=count[1];
+          break;
+          case 103:
+            bus[2].info[count[2]]=temp[i];
+            bus[2].info[count[2]].seatNum=count[2]+1;
+            count[2]++;
+            bus[2].passCount=count[2];
+          break;
+          case 104:
+            bus[3].info[count[3]]=temp[i];
+            bus[3].info[count[3]].seatNum=count[3]+1;
+            count[3]++;
+            bus[3].passCount=count[3];
+          break;
+          case 105:
+            bus[4].info[count[4]]=temp[i];
+            bus[4].info[count[4]].seatNum=count[4]+1;
+            count[4]++;
+            bus[4].passCount=count[4];
+          break;
+          case 106:
+            bus[5].info[count[5]]=temp[i];
+            bus[5].info[count[5]].seatNum=count[5]+1;
+            count[5]++;
+            bus[5].passCount=count[5];
+          break;
+          case 107:
+            bus[6].info[count[6]]=temp[i];
+            bus[6].info[count[6]].seatNum=count[6]+1;
+            count[6]++;
+            bus[6].passCount=count[6];
+          break;
+          case 108:
+            bus[7].info[count[7]]=temp[i];
+            bus[7].info[count[7]].seatNum=count[7]+1;
+            count[7]++;
+            bus[7].passCount=count[7];
+          break;
+          case 109:
+            bus[8].info[count[8]]=temp[i];
+            bus[8].info[count[8]].seatNum=count[8]+1;
+            count[8]++;
+            bus[8].passCount=count[8];
+          break;
+          case 150:
+            bus[9].info[count[9]]=temp[i];
+            bus[9].info[count[9]].seatNum=count[9]+1;
+            count[9]++;
+            bus[9].passCount=count[9];
+          break;
+          case 151:
+            bus[10].info[count[10]]=temp[i];
+            bus[10].info[count[10]].seatNum=count[10]+1;
+            count[10]++;
+            bus[10].passCount=count[10];
+          break;
+          case 152:
+            bus[11].info[count[11]]=temp[i];
+            bus[11].info[count[11]].seatNum=count[11]+1;
+            count[11]++;
+            bus[10].passCount=count[10];
+          break;
+          case 153:
+              bus[12].info[count[12]]=temp[i];
+              bus[12].info[count[12]].seatNum=count[12]+1;
+              count[12]++;
+              bus[12].passCount=count[12];
+          break;
+          case 154:
+              bus[13].info[count[13]]=temp[i];
+              bus[13].info[count[13]].seatNum=count[13]+1;
+              count[13]++;
+              bus[13].passCount=count[13];
+          break;
+          case 155:
+              bus[14].info[count[14]]=temp[i];
+              bus[14].info[count[14]].seatNum=count[14]+1;
+              count[14]++;
+              bus[14].passCount=count[14];
+          break;
+          case 156:
+              bus[15].info[count[15]]=temp[i];
+              bus[15].info[count[15]].seatNum=count[15]+1;
+              count[15]++;
+              bus[15].passCount=count[15];
+          break;
+          case 157:
+              bus[16].info[count[16]]=temp[i];
+              bus[16].info[count[16]].seatNum=count[16]+1;
+              count[16]++;
+              bus[16].passCount=count[16];
+          break;
+          case 158:
+              bus[17].info[count[17]]=temp[i];
+              bus[17].info[count[17]].seatNum=count[17]+1;
+              count[17]++;
+              bus[17].passCount=count[17];
+          break;
+          case 159:
+              bus[18].info[count[18]]=temp[i];
+              bus[18].info[count[18]].seatNum=count[18]+1;
+              count[18]++;
+              bus[18].passCount=count[18];
+          break;
+          case 160:
+              bus[19].info[count[19]]=temp[i];
+              bus[19].info[count[19]].seatNum=count[19]+1;
+              count[19]++;
+              bus[19].passCount=count[19];
+          break;
+      }
     }
 
     fclose(fp);
@@ -215,6 +338,7 @@ int checkSeatCount(struct Bus Bus,int seatCount)
       }
 }
 
+// Print bus function
 void printBus(struct Bus bus)
 {
     int i,j,seatCount=1;
@@ -286,10 +410,72 @@ else if(bus.passCount>13)
 
 }
 
+void SearchPass (struct Bus bus[])
+{
+    int i, j;
+    string name;
+
+    printf("Input last name of the passenger\n");
+    scanf("%s", &name);
+
+    for (i = 0; i < 20; i++)
+    {
+        for(j = 0; j < bus[i].passCount; j++)
+        {
+            if(strcmp(name,bus[i].info[j].LastName) == 0)
+            {
+                printf("Trip number: AE%d\n", bus[i].busName);
+                if (bus[i].info[j].ePoint == 0)
+                    printf("Embarkation point: Manila\n");
+                else
+                    printf("Embarkation point: Laguna\n");
+
+                printf("Passenger Name: %s %s\n",bus[i].info[j].FirstName,bus[i].info[j].LastName);
+                printf("ID number: %d\n", bus[i].info[j].id);
+
+                if(bus[i].busName>=101&&bus[i].busName<=109);
+                        switch (bus[i].info[j].dPoint)
+                        {
+                        case 1:
+                            printf("Drop-off point: Mamplasan Toll Exit");
+                        break;
+                        case 2:
+                            printf("Drop-off point: Phase 5, San Jose Village");
+                        break;
+                        case 3:
+                            printf("Drop-off point: Milagros Del Rosario Building - East Canopy");
+                        break;
+                        }
+                if (bus[i].busName >= 150 && bus[i].busName <= 160)
+                {
+                    switch(bus[i].info[j].dPoint)
+                    {
+                    case 1:
+                        printf("Drop-off point: Petron Gasoline Station along Gil Puyat Avenue");
+                        break;
+                    case 2:
+                        printf("Drop-off point: Gate 4: Gokongwei Gate");
+                        break;
+                    case 3:
+                        printf("Drop-off point: Gate 2: North Gate (HSSH)");
+                        break;
+                    case 4:
+                        printf("Drop-off point: Gate 1: South Gate (LS Building Entrance)");
+                        break;
+                    }
+
+                }
+            }
+        }
+    }
+    printf("\n\n");
+}
+
 int main (int argc, char const *argv[])
 {
     struct Bus bus[20];
-    int busNum, option, passBool;
+    string input;
+    int busNum, option, passBool,i;
     initBus(bus);
 
         printf("Enter (1) if you are a passenger or (0) if you are an AE personnel\n");
@@ -331,6 +517,9 @@ int main (int argc, char const *argv[])
                 break;
             case 4:
                 inputFromText(bus);
+                break;
+            case 5:
+                SearchPass(bus);
                 break;
             case 7:
                 return 0;
