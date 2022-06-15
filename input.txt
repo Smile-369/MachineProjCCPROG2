@@ -11,5 +11,80 @@ John Glock
 John Fock
 101
 3
-2
+4
 69422
+John Dock
+101
+1
+1
+69423
+John Block
+101
+2
+5
+69424
+John Sock
+101
+3
+4
+69425
+John Lugaw
+101
+1
+3
+69426
+John Luger
+101
+2
+5
+69427
+John Burger
+101
+3
+1
+69428
+John Burper
+101
+1
+3
+69429
+John Orange
+101
+2
+4
+69430
+John Magenta
+101
+3
+3
+69431
+John Blue
+101
+1
+2
+69432
+John Burgundy
+101
+1
+3
+69433
+John Merlot
+101
+2
+4
+69430
+John Wick
+101
+3
+3
+69434
+John Cena
+101
+1
+2
+69435
+John Ace
+102
+1
+2
+69435

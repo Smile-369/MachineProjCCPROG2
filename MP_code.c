@@ -1,6 +1,10 @@
-/* Kharl Vincent V. Lim (12116003)
-   Matthew Theodore T. Borromeo (12118672)
+/*  This is to certify that this project is our own work, based on our personal efforts in studying and applying the concepts
+    learned. We have constructed the functions and their respective algorithms and corresponding code by ourselves. The
+    program was run, tested, and debugged by our own efforts. We further certify that we have not copied in part or whole or
+    otherwise plagiarized the work of other students and/or persons.
 
+    Kharl Vincent Villanueva Lim (12116003), Matthew Theodore Tuvilla Borromeo (12118672)
+    Last modified: June 15, 2022 21:22
 */
 
 #include <stdio.h>
@@ -31,7 +35,7 @@ struct ECard {
     int seatNum;
 };
 
-//the structure for all the bussys
+//the structure for all the buses
 struct Bus {
     int passCount;
     struct ECard info[20];
@@ -39,7 +43,12 @@ struct Bus {
     int busName;
 };
 
-// Initialize both busName and passCount
+/*  initBus This function Initialize both busName and passCount.
+
+    @param (struct Bus) <bus[]> These are the AE buses.
+
+    @return (void) Does not return a value
+*/
 void initBus(struct Bus bus[])
 {
     int i, tempBusname=101;
@@ -53,7 +62,14 @@ void initBus(struct Bus bus[])
     }
 }
 
-// returns the bus index+1 based on the trip number : IE: 101 returns 1
+/*  getBusname This function returns the index of the tripNumber plus one.
+
+    @param (struct Bus) <bus[]> These are the AE buses.
+    @param (int) <tripNum> The input that is being compared to the busNumber stored in bus.
+
+    @return (int) Index of the tripNumber plus one.
+    Pre-condition: TripNum ranges from 101-109 and 150-160.
+*/
 int getBusName (struct Bus bus[], int tripNum)
 {
     int i;
@@ -66,27 +82,37 @@ int getBusName (struct Bus bus[], int tripNum)
     return 0;
 }
 
+/*  getLeastPriority This function returns the index of the person with the lowest priority number in the frontmost of the bus.
+
+    @param (struct Bus) <bus> This is a specific bus.
+
+    @return (int) Returns the index of the person with the lowest priority number with the highest seatNumber in the bus.
+*/
 int getLeastPriority(struct Bus bus)
 {
     int i , index = 0;
 
-    for (i = 15; i > 0; i--)
+    for (i = 20; i > 0; i--)
     {
         if (bus.info[i].prioNum > bus.info[index].prioNum)
-        {
             index = i;
-        }
     }
     return index;
 }
-// Manual passenger input
+
+/*  passInput This function is the manual passenger input for a specific bus.
+
+    @param (struct Bus) <bus> These are the Arrow Express fleet.
+
+    @return (void) Does not return a value.
+*/
 void passInput (struct Bus bus[])
 {
-    int busNum, index, i, j;
+    int busNum, index, reserve, i, j;
 
     printf("Which bus would you ride on\nAE");
     scanf("%d", &busNum);
-    index = getBusName(bus,busNum)-1;
+    index = getBusName(bus,busNum) - 1;
 
     if (bus[index].busName >= 101 && bus[index].busName <= 109)
         bus[index].info[bus[index].passCount].ePoint = 0;
@@ -127,7 +153,7 @@ void passInput (struct Bus bus[])
     printf("Your seat number is %d\n", bus[index].info[bus[index].passCount].seatNum);
     bus[index].info[bus[index].passCount].seatNum++;
     bus[index].passCount++;
-    int seatcount[20] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+    int seatcount[20] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 
     for (i = 0; i < 20; i++)
     {
@@ -137,35 +163,62 @@ void passInput (struct Bus bus[])
             seatcount[i]++;
         }
     }
+    struct ECard temp;
     for(i = 0; i < 20; i ++)
     {
         if (bus[i].passCount > 16)
         {
+
             for (j = 16; j < 20; j++)
-            {
+        {
                 if (bus[i].info[j].prioNum > 0)
                 {
-                    bus[i+1].info[bus[i + 1].passCount]=bus[i].info[getLeastPriority(bus[i])];
-                    bus[i].info[getLeastPriority(bus[i])] = bus[i].info[j];
-                    bus[i].passCount--;
-                    bus[i + 1].passCount++;
-                    printf("Attention %s %s you have been moved to AE%d",
-                    bus[i].info[getLeastPriority(bus[i])].FirstName, bus[i].info[getLeastPriority(bus[i])].LastName, bus[i + 1].busName);
+                    if (bus[i].busName == 109 || bus[i].busName == 160 )
+                    {
+                        temp = bus[i].info[getLeastPriority(bus[i])];
+                        bus[i].info[getLeastPriority(bus[i])]= bus[i].info[j];
+                        bus[i].info[j] = temp;
+                        printf("Attention %s %s you have been moved to Tommorow, You may chose again then\n");
+                        bus[i].info[j].seatNum = 0;
+                        bus[i].info[j].prioNum = 0;
+                        bus[i].info[j].dPoint = 0;
+                        bus[i].info[j].ePoint = 0;
+                        bus[i].info[j].id = 0;
+                        strcpy(bus[i].info[j].FirstName, "");
+                        strcpy(bus[i].info[j].LastName, "");
+                        printf("%s\n",bus[i].info[j].LastName);
+                        bus[i].passCount--;
+                    }
+                    else if (bus[i].busName != 109 || bus[i].busName != 160)
+                    {
+                        bus[i+1].info[bus[i + 1].passCount]=bus[i].info[getLeastPriority(bus[i])];
+                        bus[i].info[getLeastPriority(bus[i])] = bus[i].info[j];
+                        bus[i].passCount--;
+                        bus[i + 1].passCount++;
+                        printf("Attention %s %s you have been moved to AE%d\n",
+                        bus[i].info[getLeastPriority(bus[i])].FirstName, bus[i].info[getLeastPriority(bus[i])].LastName, bus[i + 1].busName);
+                    }
                 }
             }
-
         }
+        if(bus[i].passCount >= 16)
+            printf("THE BUS AE%d IS NOW FULL\n",bus[i].busName);
     }
-    printf("Thank you for using Arrow Express Line!\n");
+    printf("Thank you for using Arrow Express Line!\n\n\n");
 }
 
-// Load passenger input feature
+/*  inputFromText Gets input from text file.
+
+    @param (struct Bus) <bus> These are the Arrow Express fleet.
+
+    @return (void) Does not return a value.
+    Pre-condition: The input file should be named input.txt and the order of the data in the file follows the format given name, surname, AE bus number,
+    drop off point ranging from 1-3 if coming from DLSU Taft, or 1-4 if coming from DLSU Canlubang, priority number of the passenger, and ID Number.
+*/
 void inputFromText (struct Bus bus[])
 {
     FILE *fp;
     int i = 0, j, totalPasscount,count[20];
-    struct ECard NullCard;
-    NullCard.tripNum = 0;
 
     fp = fopen("input.txt", "r");
     struct ECard temp[150];
@@ -325,18 +378,43 @@ void inputFromText (struct Bus bus[])
             {
                 if (bus[i].info[j].prioNum > 0)
                 {
-                    bus[i+1].info[bus[i + 1].passCount]=bus[i].info[getLeastPriority(bus[i])];
-                    bus[i].info[getLeastPriority(bus[i])] = bus[i].info[j];
-                    bus[i].passCount--;
-                    bus[i + 1].passCount++;
-                    printf("Attention %s %s you have been moved to AE%d\n",
-                    bus[i].info[getLeastPriority(bus[i])].FirstName, bus[i].info[getLeastPriority(bus[i])].LastName, bus[i + 1].busName);
+                    if (bus[i].busName == 109 || bus[i].busName == 160 )
+                    {
+                        temp[0] = bus[i].info[getLeastPriority(bus[i])];
+                        bus[i].info[getLeastPriority(bus[i])]= bus[i].info[j];
+                        bus[i].info[j] = temp[0];
+                        printf("Attention %s %s you have been moved to Tommorow, You may chose again then\n",
+                        bus[i].info[j].FirstName, bus[i].info[j].LastName);
+                        bus[i].info[j].seatNum = 0;
+                        bus[i].info[j].prioNum = 0;
+                        bus[i].info[j].dPoint = 0;
+                        bus[i].info[j].ePoint = 0;
+                        bus[i].info[j].id = 0;
+                        strcpy(bus[i].info[j].FirstName, "");
+                        strcpy(bus[i].info[j].LastName, "");
+                        printf("%s\n",bus[i].info[j].LastName);
+                        bus[i].passCount--;
+                    }
+                    else if (bus[i].busName != 109 || bus[i].busName != 160)
+                    {
+                        bus[i+1].info[bus[i + 1].passCount]=bus[i].info[getLeastPriority(bus[i])];
+                        bus[i].info[getLeastPriority(bus[i])] = bus[i].info[j];
+                        bus[i].passCount--;
+                        bus[i + 1].passCount++;
+                        printf("Attention %s %s you have been moved to AE%d\n",
+                        bus[i].info[getLeastPriority(bus[i])].FirstName, bus[i].info[getLeastPriority(bus[i])].LastName, bus[i + 1].busName);
+
+                    }
+
                 }
             }
 
         }
+        if(bus[i].passCount >= 16)
+            printf("THE BUS AE%d IS NOW FULL\n",bus[i].busName);
     }
-    int seatcount[20] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+
+    int seatcount[20] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
     for (i = 0; i < 20; i++)
     {
         for( j = 0; j < bus[i].passCount; j++)
@@ -346,9 +424,15 @@ void inputFromText (struct Bus bus[])
         }
     }
     fclose(fp);
+    printf("\n\n");
 }
 
-// View no. of passengers dropping off at certain points
+/*  printDPointCount Prints the number of passengers going down at certain drop-off points.
+
+    @param (struct Bus) <bus> These are the Arrow Express fleet.
+
+    @return (void) Does not return value.
+*/
 void printDPointCount (struct Bus bus)
 {
     int i, mTollCount = 0, p5Count = 0, mDRBCount = 0, pGSCount = 0, g4Count = 0, g2Count = 0, g1Count = 0;
@@ -394,7 +478,7 @@ void printDPointCount (struct Bus bus)
     if (mTollCount)
         printf("Mamplasan Toll Exit: %d Passenger(s)\n", mTollCount);
     if (p5Count)
-        printf("Mamplasan Toll Exit: %d Passenger(s)\n", mTollCount);
+        printf("Phase 5, San Jose Village Exit: %d Passenger(s)\n", p5Count);
     if (mDRBCount)
         printf("Milagros Del Rosario Building - East Canopy: %d Passenger(s)\n", mDRBCount);
     if (pGSCount)
@@ -408,7 +492,14 @@ void printDPointCount (struct Bus bus)
     printf("\n\n");
 }
 
-int checkSeatCount (struct Bus bus,int seatCount)
+/*  checkSeatCount if the seacount parameter matches the seatcount value in bus.info it will return true.
+
+    @param (struct Bus) <bus> A single bus from the fleet
+    @param (int) <seatCount> the seat counter
+
+    @return (int) true or false
+*/
+int checkSeatCount (struct Bus bus, int seatCount)
 {
     int i;
     for (i = 0; i < 20; i++)
@@ -416,9 +507,15 @@ int checkSeatCount (struct Bus bus,int seatCount)
         if (bus.info[i].seatNum == seatCount)
             return 1;
       }
+    return 0;
 }
 
-// Print bus function
+/*  printBus Prints the passenger count, remaining seats available, and the visualization of the bus.
+
+    @param (struct Bus) <bus> These are the Arrow Express fleet.
+
+    @return (void) Does not return a value.
+*/
 void printBus (struct Bus bus)
 {
     int i, j, seatCount = 1;
@@ -455,8 +552,8 @@ void printBus (struct Bus bus)
         }
     }
 
-else if(bus.passCount>13)
-{
+    else if(bus.passCount>13)
+    {
     printf("AMOUNT OF SEATS AVAILABLE %d\n",16-bus.passCount );
     for(i = 0; i < 5; i++)
     {
@@ -489,8 +586,13 @@ else if(bus.passCount>13)
   }
 }
 
-// Display the info of the passenger searched using last name
-void SearchPass (struct Bus bus[])
+/*  searchPass Searches and prints the info of a specific passenger using their last name.
+
+    @param (struct Bus) <bus> These are the Arrow Express fleet.
+
+    @return (void) Does not return a value.
+*/
+void searchPass (struct Bus bus[])
 {
     int i, j;
     string name;
@@ -551,7 +653,12 @@ void SearchPass (struct Bus bus[])
     printf("\n\n");
 }
 
-// Print all receipts to a single file
+/*  printReciept this functions automatically save current information to a text file when the program is terminated, named trip-dd-mm-yyyy.txt
+
+    @param (struct Bus) <bus> These are the Arrow Express fleet.
+
+    @return (void) Does not return a value.
+*/
 void printReceipt (struct Bus bus[], struct date date)
 {
     int i, j;
@@ -606,15 +713,20 @@ void printReceipt (struct Bus bus[], struct date date)
     }
 }
 
-// Sort passengers accdg to prio number in ascending order
+/*  sortPriority sorts the all the passengers in all the buses according to their priority numbers.
+
+    @param (struct Bus) <bus> These are the Arrow Express fleet.
+
+    @return (void) Does not return a value.
+*/
 void sortPriority (struct Bus bus[])
 {
     int i, j, tempSeatCount = 1;
     struct ECard temp;
-    // loop to access each array element
+
     for (i = 0; i < bus->passCount - 1; i++)
     {
-        // loop to compare array elements
+
         for (j = 0; j < bus->passCount - i - 1; j++)
         {
             if (bus->info[j].prioNum > bus->info[j+1].prioNum)
@@ -627,7 +739,12 @@ void sortPriority (struct Bus bus[])
     }
 }
 
-// Prints the info of all passengers in the bus
+/*  printAllPassInfo Prints all the information in their ticket sorted by priority number in ascending order.
+
+    @param (struct Bus) <bus> These are the Arrow Express fleet.
+
+    @return (void) Does not return a value.
+*/
 void printAllPassInfo (struct Bus bus)
 {
     int i;
@@ -668,12 +785,14 @@ void printAllPassInfo (struct Bus bus)
         }
         printf("--------------\n");
         printf("--------------\n");
-
     }
-
+    printf("\n\n");
 }
 
-// Prints output receipt into terminal
+/*  loadFromText Prints all the information from a given reciept into the terminal.
+
+    @return (void) Does not return a value.
+*/
 void loadFromText ()
 {
     int i,j, totalPasscount, count[20];
@@ -682,9 +801,9 @@ void loadFromText ()
 
     printf("Enter date(DD MM YYYY): \n");
     scanf("%d %d %d", &date.date, &date.month, &date.year);
-    sprintf(date.dateString,"%02d-%02d-%04d", date.date, date.month,date.year);
-    string filename="trip-";
-    strcat(filename,date.dateString);
+    sprintf(date.dateString, "%02d-%02d-%04d", date.date, date.month, date.year);
+    string filename = "trip-";
+    strcat(filename, date.dateString);
     strcat(filename,".txt");
     FILE *fp;
     fp = fopen(filename,"r");
@@ -694,7 +813,9 @@ void loadFromText ()
         fgets(temp, sizeof(string), fp);
         fprintf(stdout,"%s", temp);
     }
+    printf("\n\n");
 }
+
 
 int main ()
 {
@@ -703,14 +824,16 @@ int main ()
     string input;
     int busNum, option, passBool, conBool = 1, i;
     initBus(bus);
-        printf("Enter date(DD MM YYYY): \n");
-        scanf("%d %d %d", &date.date, &date.month, &date.year);
-        sprintf(date.dateString,"%02d-%02d-%04d", date.date, date.month,date.year);
+    printf("Enter date(DD MM YYYY):\n");
+    scanf("%d %d %d", &date.date, &date.month, &date.year);
+    sprintf(date.dateString,"%02d-%02d-%04d", date.date, date.month,date.year);
 
     while (conBool == 1)
     {
         printf("Enter (1) if you are a passenger or (2) if you are an AE personnel\n");
         scanf("%d", &passBool);
+        printf("\n\n");
+
         if (passBool == 1)
         {
             passInput(bus);
@@ -718,6 +841,7 @@ int main ()
             printf("(1) Yes\n");
             printf("(2) No\n");
             scanf("%d", &conBool);
+            printf("\n\n");
         }
 
         if (passBool == 2)
@@ -756,7 +880,7 @@ int main ()
                     inputFromText(bus);
                     break;
                 case 5:
-                    SearchPass(bus);
+                    searchPass(bus);
                     break;
                 case 6:
                     loadFromText();
@@ -766,6 +890,7 @@ int main ()
                     printf("(1) Yes\n");
                     printf("(2) No\n");
                     scanf("%d", &conBool);
+                    printf("\n\n");
                     break;
                 }
             }
